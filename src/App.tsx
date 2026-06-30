@@ -200,8 +200,13 @@ export default function App() {
   const highPriorityTasks = state.tasks.filter(t => t.priority === 'Highest');
   const highPriorityProgress = highPriorityTasks.length > 0 ? Math.round(highPriorityTasks.reduce((sum, t) => sum + t.progress, 0) / highPriorityTasks.length) : 0;
   
-  const projectTotalDays = getDaysBetween(today, state.targetDate);
-  const projectCurrentDays = getDaysBetween(today, state.currentDate);
+  const sDStart = new Date(today);
+  const sDay = sDStart.getDay();
+  const sDiff = sDStart.getDate() - sDay + (sDay === 0 ? -6 : 1);
+  sDStart.setDate(sDiff);
+  const startOfWeek = sDStart.toISOString().split('T')[0];
+  const projectTotalDays = getDaysBetween(startOfWeek, state.targetDate);
+  const projectCurrentDays = getDaysBetween(startOfWeek, state.currentDate) + 1;
   let expectedOverall = 0;
   if (projectTotalDays > 0 && projectCurrentDays > 0) {
     expectedOverall = (projectCurrentDays / projectTotalDays) * 100;
