@@ -541,7 +541,7 @@ export default function App() {
                     <div className="relative w-full h-8 z-10 mx-2">
                        <div 
                          className="absolute top-1/2 -translate-y-1/2 rounded"
-                         style={{ left: `max(0%, calc(${leftPct}% - 8px))`, width: `min(100%, calc(${widthPct}% + 16px))` }}
+                         style={{ left: `${leftPct}%`, width: `${widthPct}%` }}
                        >
                          <ProgressBar 
                            progress={task.progress} 
