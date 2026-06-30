@@ -282,7 +282,11 @@ export default function App() {
     return { level: '🟢 良好', text: '核心 MCP 能力按计划推进，风险处于可控范围内。', color: 'bg-green-50 border-green-200 text-green-800', iconColor: 'text-green-500' };
   };
 
-  const timelineStart = today;
+  const dStart = new Date(today);
+  const day = dStart.getDay();
+  const diff = dStart.getDate() - day + (day === 0 ? -6 : 1);
+  dStart.setDate(diff);
+  const timelineStart = dStart.toISOString().split('T')[0];
   const totalTimelineDays = getDaysBetween(timelineStart, state.targetDate) || 48;
   const todayOffsetPct = Math.max(0, Math.min(100, (getDaysBetween(timelineStart, state.currentDate) / totalTimelineDays) * 100));
 
@@ -319,7 +323,7 @@ export default function App() {
              <div className="h-6 w-px bg-black/20 mx-2 hidden md:block"></div>
 
              <div className="flex items-center gap-2 text-sm font-medium">
-               <span className="text-black/70">当日时间</span>
+               <span className="text-black/70">当前日期</span>
                <input 
                  type="date"
                  className="bg-white/50 border border-black/10 rounded-md px-2 py-1 text-sm font-semibold text-black outline-none focus:ring-2 focus:ring-black/50"
@@ -347,7 +351,7 @@ export default function App() {
               <Sparkles className="w-5 h-5" />
            </div>
            <div>
-              <h3 className="text-indigo-900 font-bold text-sm mb-1">AI 智能进度风险分析</h3>
+              <h3 className="text-indigo-900 font-bold text-sm mb-1">项目进度概览</h3>
               <p className="text-indigo-800/80 text-sm leading-relaxed">
                 当前项目整体进度 {overallProgress}%，时间进度 {Math.round(expectedOverall)}%。
                 {overallProgress < expectedOverall ? `进度落后于时间进度约 ${Math.round(expectedOverall - overallProgress)}%，` : `进度健康，`}
@@ -450,11 +454,7 @@ export default function App() {
             <h2 className="text-base font-bold text-gray-900 flex items-center gap-2">
               MCP Tools 进展甘特图
             </h2>
-            <div className="flex gap-4 text-[10px] font-medium text-gray-500">
-               <span className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-[#FFC72C]"></div> 正常</span>
-               <span className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-green-500"></div> 已完成</span>
-               <span className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-[#DA291C]"></div> 风险/阻塞</span>
-            </div>
+            
           </div>
           
           <div className="flex border-b border-gray-100 bg-gray-50 text-xs text-gray-500 font-semibold sticky top-[68px] z-20">
