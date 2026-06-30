@@ -321,7 +321,7 @@ export default function App() {
              <div className="flex items-center gap-2 text-sm font-medium">
                <span className="text-black/70">目标交付</span>
                <div className="bg-white/50 border border-black/10 rounded-md px-2 py-1 text-sm font-semibold text-black">
-                 2026-08-06
+                 2026-08-16
                </div>
              </div>
              

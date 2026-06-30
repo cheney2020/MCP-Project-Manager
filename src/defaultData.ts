@@ -2,7 +2,7 @@ import { AppState } from './types';
 
 export const defaultState: AppState = {
   currentDate: '2026-06-29',
-  targetDate: '2026-08-06',
+  targetDate: '2026-08-16',
   tasks: [
     {
       id: 't1',
