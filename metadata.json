@@ -1,0 +1,8 @@
+{
+  "name": "MCP Project Manager",
+  "description": "An interactive project management dashboard for the Data Service Platform MCP Capabilities project, featuring Gantt charts, daily meeting views, and risk tracking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
