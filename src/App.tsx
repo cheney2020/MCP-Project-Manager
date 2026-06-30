@@ -80,6 +80,7 @@ const ProgressBar = ({ progress, onChange, colorClass }: { progress: number, onC
 };
 
 export default function App() {
+  const today = new Date(Date.now() + 8 * 3600 * 1000).toISOString().split('T')[0];
   const [state, setState] = useState<AppState>(() => {
     const today = new Date(Date.now() + 8 * 3600 * 1000).toISOString().split('T')[0];
     try {
@@ -199,8 +200,8 @@ export default function App() {
   const highPriorityTasks = state.tasks.filter(t => t.priority === 'Highest');
   const highPriorityProgress = highPriorityTasks.length > 0 ? Math.round(highPriorityTasks.reduce((sum, t) => sum + t.progress, 0) / highPriorityTasks.length) : 0;
   
-  const projectTotalDays = getDaysBetween('2026-06-29', state.targetDate);
-  const projectCurrentDays = getDaysBetween('2026-06-29', state.currentDate);
+  const projectTotalDays = getDaysBetween(today, state.targetDate);
+  const projectCurrentDays = getDaysBetween(today, state.currentDate);
   let expectedOverall = 0;
   if (projectTotalDays > 0 && projectCurrentDays > 0) {
     expectedOverall = (projectCurrentDays / projectTotalDays) * 100;
@@ -281,7 +282,7 @@ export default function App() {
     return { level: '🟢 良好', text: '核心 MCP 能力按计划推进，风险处于可控范围内。', color: 'bg-green-50 border-green-200 text-green-800', iconColor: 'text-green-500' };
   };
 
-  const timelineStart = '2026-06-29';
+  const timelineStart = today;
   const totalTimelineDays = getDaysBetween(timelineStart, state.targetDate) || 48;
   const todayOffsetPct = Math.max(0, Math.min(100, (getDaysBetween(timelineStart, state.currentDate) / totalTimelineDays) * 100));
 
@@ -525,7 +526,7 @@ export default function App() {
                   </div>
 
                   {/* Middle: Unified Timeline Row */}
-                  <div className="w-full lg:flex-1 p-0 border-b lg:border-b-0 lg:border-r border-gray-100 relative min-h-[60px] flex items-center overflow-hidden">
+                  <div className="w-full lg:flex-1 p-0 border-b lg:border-b-0 lg:border-r border-gray-100 relative min-h-[60px] flex items-center overflow-visible">
                     <div className="absolute inset-0 flex pointer-events-none">
                       {[...Array(totalTimelineDays > 0 ? Math.ceil(totalTimelineDays/7) : 8)].map((_, i) => (
                         <div key={i} className="flex-1 border-r border-dashed border-gray-100"></div>
